@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BookMarked, CheckCircle2, Clock, PenLine, RotateCcw } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { StudySessionMarker } from "@/components/study/StudySessionMarker";
+import { TopicVisual } from "@/components/study/TopicVisual";
 import { domainLabels } from "@/data/topics";
 import { WEB_USER_ID } from "@/lib/session";
 import { getRepository } from "@/lib/storage";
@@ -72,10 +73,8 @@ export default async function TodayPage() {
       </section>
 
       <section className="section">
-        <SectionHeader title="図解で見るなら" description="ノートにこの矢印を描くと理解しやすいです。" />
-        <div className="card card-pad">
-          <p className="learning-copy">{recommendation.diagramText}</p>
-        </div>
+        <SectionHeader title="図解で理解" description="文章ではなく、流れ・関係・分岐として眺めます。" />
+        <TopicVisual topic={recommendation.topic} compact />
       </section>
 
       <section className="section grid grid-2">

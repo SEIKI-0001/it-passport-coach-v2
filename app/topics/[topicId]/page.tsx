@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { BookOpenCheck, Gamepad2, PenLine } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { StudySessionMarker } from "@/components/study/StudySessionMarker";
+import { TopicVisual } from "@/components/study/TopicVisual";
 import { domainLabels, getTopicById } from "@/data/topics";
 import { WEB_USER_ID } from "@/lib/session";
 
@@ -53,10 +54,8 @@ export default async function TopicPage({ params }: PageProps) {
       </section>
 
       <section className="section">
-        <SectionHeader title="図解用メモ" description="文章を図に置き換えるための説明です。" />
-        <div className="card card-pad">
-          <p className="learning-copy">{topic.diagramText}</p>
-        </div>
+        <SectionHeader title="図解で理解" description="テーマごとに流れ・関係・分岐が見える形で整理します。" />
+        <TopicVisual topic={topic} />
       </section>
 
       <section className="section grid grid-2">

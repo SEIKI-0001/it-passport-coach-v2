@@ -19,6 +19,70 @@ export type Topic = {
   minigameId?: string;
 };
 
+export type TopicVisualIcon =
+  | "app"
+  | "book"
+  | "briefcase"
+  | "calculator"
+  | "check"
+  | "database"
+  | "file"
+  | "globe"
+  | "key"
+  | "lock"
+  | "network"
+  | "server"
+  | "shield"
+  | "spark"
+  | "user";
+
+export type TopicVisualTone = "brand" | "blue" | "accent" | "yellow" | "danger" | "neutral";
+
+export type TopicVisualNode = {
+  label: string;
+  detail?: string;
+  icon?: TopicVisualIcon;
+  tone?: TopicVisualTone;
+};
+
+export type TopicVisualLane = {
+  label: string;
+  detail?: string;
+  segments: Array<{
+    label: string;
+    width: number;
+    tone?: TopicVisualTone;
+  }>;
+};
+
+export type TopicVisualMode =
+  | "flow"
+  | "balance"
+  | "category-grid"
+  | "timeline"
+  | "branch"
+  | "table-split"
+  | "network"
+  | "crypto"
+  | "algorithm";
+
+export type TopicVisual = {
+  topicId: string;
+  mode: TopicVisualMode;
+  title: string;
+  subtitle: string;
+  nodes?: TopicVisualNode[];
+  groups?: Array<{
+    label: string;
+    detail?: string;
+    icon?: TopicVisualIcon;
+    tone?: TopicVisualTone;
+    items: string[];
+  }>;
+  lanes?: TopicVisualLane[];
+  callout?: string;
+};
+
 export type QuestionChoice = {
   id: "a" | "b" | "c" | "d";
   text: string;
