@@ -40,6 +40,10 @@ ADMIN_PASSWORD=
 
 `ADMIN_PASSWORD` が空の場合、`/admin` は表示されません。
 
+`NEXT_PUBLIC_SUPABASE_URL` は Supabase の管理画面URLではありません。Supabase dashboard の
+`Project Settings` -> `API` -> `Project URL` にある `https://<project-ref>.supabase.co`
+形式のURLを設定してください。
+
 ## Supabase
 
 `supabase/schema.sql` を実行すると、MVP用のテーブルを作成できます。
