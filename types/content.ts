@@ -17,6 +17,34 @@ export type Topic = {
   recommendedMinutes: number;
   bookReferenceNotes: Record<string, string>;
   minigameId?: string;
+  understandingExperience?: UnderstandingExperience;
+};
+
+export type ExperienceChoice = {
+  id: string;
+  label: string;
+  isCorrect: boolean;
+  feedback: string;
+};
+
+export type ExperienceStep = {
+  id: string;
+  label: string;
+  description: string;
+  order: number;
+};
+
+export type UnderstandingExperience = {
+  id: string;
+  title: string;
+  situation: string;
+  question: string;
+  interactionType: "choice" | "sequence" | "simulation" | "slider" | "classification";
+  steps?: ExperienceStep[];
+  choices?: ExperienceChoice[];
+  resultExplanation: string;
+  conceptExplanation: string;
+  connectionToTerm: string;
 };
 
 export type TopicVisualIcon =

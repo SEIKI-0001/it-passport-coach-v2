@@ -178,6 +178,50 @@ export const topics: Topic[] = [
     relatedPastExamThemes: ["データベース", "関係データベース", "正規化"],
     reviewPriority: 5,
     recommendedMinutes: 35,
+    understandingExperience: {
+      id: "experience-db-normalization-duplicate-address",
+      title: "住所を何か所直すことになる？",
+      situation:
+        "注文表に同じ顧客の住所が3行ぶん重複して入っています。その顧客が引っ越したので、住所を新しいものに直す必要があります。",
+      question: "この表のままだと、住所は何か所修正する必要がありますか？",
+      interactionType: "choice",
+      choices: [
+        {
+          id: "one",
+          label: "1か所だけ直せばよい",
+          isCorrect: false,
+          feedback:
+            "1か所だけ直すと、同じ顧客なのに古い住所が残った行と新しい住所の行が混ざります。これがデータの不整合です。"
+        },
+        {
+          id: "two",
+          label: "2か所直せば十分",
+          isCorrect: false,
+          feedback:
+            "2か所直しても、残り1行が古い住所のままです。重複している情報は、直し忘れが起きやすくなります。"
+        },
+        {
+          id: "three",
+          label: "3か所すべて直す",
+          isCorrect: true,
+          feedback:
+            "その通りです。同じ住所が3行に重複しているので、すべて直さないと表の中で矛盾が起きます。"
+        },
+        {
+          id: "none",
+          label: "修正しなくてよい",
+          isCorrect: false,
+          feedback:
+            "住所が古いままだと、配送や請求のような実務で困ります。データは現実の状態に合わせて更新する必要があります。"
+        }
+      ],
+      resultExplanation:
+        "同じ情報を何度も持つ表では、更新のたびに複数箇所を直す必要があります。1つでも漏れると、同じ顧客に複数の住所があるように見えてしまいます。",
+      conceptExplanation:
+        "そこで、顧客の住所は顧客表に1回だけ持たせ、注文表には顧客IDだけを書くように分けます。直す場所が1か所になり、修正漏れを防ぎやすくなります。",
+      connectionToTerm:
+        "このように、重複を減らしてデータの不整合を防ぐために表を整理する考え方が「正規化」です。"
+    },
     bookReferenceNotes: {
       generic: "データベースの正規化",
       yasashii: "表の整理とキー",
@@ -207,6 +251,72 @@ export const topics: Topic[] = [
     }
   },
   {
+    id: "technology-cache",
+    domain: "technology",
+    title: "キャッシュ",
+    summary: "一度使ったデータを近くに置き、次回以降の表示や処理を速くする仕組みです。",
+    beginnerExplanation:
+      "キャッシュは、よく使うデータのコピーを手元に置いておく仕組みです。毎回遠い場所へ取りに行かなくてよいので、表示や処理が速くなります。",
+    analogy:
+      "毎回倉庫まで資料を取りに行く代わりに、よく使う資料のコピーを机の上に置いておくイメージです。",
+    diagramText:
+      "利用者 -> 近くのキャッシュを確認 -> あればすぐ使う、なければ元データを取りに行ってコピーを置く、という流れで描くと理解しやすいです。",
+    keyTerms: ["キャッシュ", "キャッシュヒット", "キャッシュミス", "有効期限", "更新"],
+    commonTraps: ["キャッシュは常に最新だと思う", "速くなる仕組みと保存先そのものを混同する"],
+    relatedPastExamThemes: ["Web", "メモリ", "性能改善"],
+    reviewPriority: 4,
+    recommendedMinutes: 25,
+    understandingExperience: {
+      id: "experience-cache-desk-copy",
+      title: "2回目も倉庫まで取りに行く？",
+      situation:
+        "あなたは授業で同じ資料を何度も使います。毎回遠くの倉庫へ取りに行く方法と、机の上にコピーを置いておく方法があります。",
+      question: "2回目以降、いちばん早く資料を見られるのはどれですか？",
+      interactionType: "choice",
+      choices: [
+        {
+          id: "warehouse",
+          label: "毎回倉庫に取りに行く",
+          isCorrect: false,
+          feedback:
+            "確実に原本を見られますが、毎回移動するので遅くなります。コンピュータでも遠い場所へのアクセスは時間がかかります。"
+        },
+        {
+          id: "desk-copy",
+          label: "机の上のコピーを見る",
+          isCorrect: true,
+          feedback:
+            "正解です。近くにコピーがあれば、同じ資料をすぐ見られます。これがキャッシュの基本の感覚です。"
+        },
+        {
+          id: "same",
+          label: "どちらも同じ速さ",
+          isCorrect: false,
+          feedback:
+            "近くにあるものを見る方が、遠くまで取りに行くより速いです。距離や処理の手間を減らすのがキャッシュの強みです。"
+        },
+        {
+          id: "throw-away",
+          label: "資料を毎回捨ててから探す",
+          isCorrect: false,
+          feedback:
+            "毎回捨てると、同じ資料をまた探すことになります。再利用できるコピーを残すから速くなります。"
+        }
+      ],
+      resultExplanation:
+        "一度手に入れたデータを近くに保存しておくと、次回は遠くのサーバや遅い記憶装置まで取りに行かずにすみます。",
+      conceptExplanation:
+        "ただし、コピーは古くなることがあります。元の資料が更新されたら、キャッシュの有効期限を切ったり、更新したり、削除したりする必要があります。",
+      connectionToTerm:
+        "近くのコピーが使えた状態を「キャッシュヒット」、コピーがなく元データを取りに行く状態を「キャッシュミス」と呼びます。"
+    },
+    bookReferenceNotes: {
+      generic: "テクノロジ系: Web・メモリ・性能改善のキャッシュ",
+      yasashii: "インターネットやコンピュータを速くする仕組み",
+      speed: "頻出用語: キャッシュ・ヒット・ミス"
+    }
+  },
+  {
     id: "technology-dns",
     domain: "technology",
     title: "DNSの名前解決",
@@ -222,6 +332,50 @@ export const topics: Topic[] = [
     relatedPastExamThemes: ["ネットワーク", "インターネット", "サーバ"],
     reviewPriority: 5,
     recommendedMinutes: 30,
+    understandingExperience: {
+      id: "experience-dns-name-to-address",
+      title: "名前だけで通信できる？",
+      situation:
+        "あなたはブラウザで example.com を開きたいと思っています。でもコンピュータは、人間向けの名前だけでは通信先を特定できません。",
+      question: "Webページを取りに行く前に、最初に必要なことは何ですか？",
+      interactionType: "choice",
+      choices: [
+        {
+          id: "direct",
+          label: "Webサーバーへ直接アクセスする",
+          isCorrect: false,
+          feedback:
+            "相手の住所が分からないままでは直接向かえません。コンピュータ同士の通信には、まずIPアドレスが必要です。"
+        },
+        {
+          id: "ask-dns",
+          label: "DNSにIPアドレスを問い合わせる",
+          isCorrect: true,
+          feedback:
+            "正解です。DNSに問い合わせることで、example.com に対応するIPアドレスを調べられます。"
+        },
+        {
+          id: "encrypt",
+          label: "先に暗号化する",
+          isCorrect: false,
+          feedback:
+            "暗号化は安全に送るための仕組みですが、送り先の住所が分からない問題は解決できません。"
+        },
+        {
+          id: "clear-cache",
+          label: "キャッシュを削除する",
+          isCorrect: false,
+          feedback:
+            "キャッシュは過去に調べた結果を早く使うためのものです。まず必要なのは、名前から住所を知ることです。"
+        }
+      ],
+      resultExplanation:
+        "コンピュータが通信するには、相手の住所にあたるIPアドレスが必要です。example.com のような名前は人間には分かりやすい一方、そのままでは通信先になりません。",
+      conceptExplanation:
+        "DNSは、ドメイン名からIPアドレスを調べる電話帳のような仕組みです。住所が分かってから、はじめてWebサーバへアクセスできます。",
+      connectionToTerm:
+        "この「名前からIPアドレスを調べること」を「名前解決」と呼びます。"
+    },
     bookReferenceNotes: {
       generic: "ネットワーク: DNSと名前解決",
       yasashii: "URLとWeb表示のしくみ",

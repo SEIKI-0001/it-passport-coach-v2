@@ -163,6 +163,24 @@ export const questions: Question[] = [
     relatedPastExamTheme: "TCP/IP"
   },
   {
+    id: "q-cache-1",
+    topicId: "technology-cache",
+    domain: "technology",
+    prompt: "キャッシュの説明として最も適切なものはどれですか。",
+    choices: [
+      { id: "a", text: "一度使ったデータを近くに保存し、次回以降すばやく使う仕組み" },
+      { id: "b", text: "すべてのデータを必ず最新に保つ暗号化の仕組み" },
+      { id: "c", text: "ドメイン名をIPアドレスに変換する仕組み" },
+      { id: "d", text: "表の重複をなくすためにデータベースを分ける仕組み" }
+    ],
+    correctChoiceId: "a",
+    explanation:
+      "キャッシュは、一度取得したデータのコピーを近くに置いて、次回以降の表示や処理を速くする仕組みです。",
+    trap: "速くなる一方で、古いコピーを見てしまう可能性がある点も押さえます。",
+    difficulty: "intro",
+    relatedPastExamTheme: "キャッシュ"
+  },
+  {
     id: "q-dns-1",
     topicId: "technology-dns",
     domain: "technology",

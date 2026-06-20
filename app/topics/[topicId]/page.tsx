@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookOpenCheck, Gamepad2, PenLine } from "lucide-react";
+import { UnderstandingExperience } from "@/components/learning/UnderstandingExperience";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { StudySessionMarker } from "@/components/study/StudySessionMarker";
 import { TopicVisual } from "@/components/study/TopicVisual";
@@ -42,7 +43,16 @@ export default async function TopicPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="section grid grid-2">
+      {topic.understandingExperience ? (
+        <section className="section">
+          <UnderstandingExperience
+            experience={topic.understandingExperience}
+            practiceHref={`/practice?topic=${topic.id}`}
+          />
+        </section>
+      ) : null}
+
+      <section className="section grid grid-2" id="topic-explanation">
         <div className="card card-pad">
           <h2>初学者向け説明</h2>
           <p className="learning-copy">{topic.beginnerExplanation}</p>
@@ -53,7 +63,7 @@ export default async function TopicPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="topic-visual">
         <SectionHeader title="図解で理解" description="テーマごとに流れ・関係・分岐が見える形で整理します。" />
         <TopicVisual topic={topic} />
       </section>

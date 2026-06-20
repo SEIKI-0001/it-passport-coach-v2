@@ -203,6 +203,20 @@ export const topicVisuals: TopicVisual[] = [
     callout: "サブネットマスクは、IPアドレスのどこまでがネットワーク部かを示します。"
   },
   {
+    topicId: "technology-cache",
+    mode: "flow",
+    title: "近くにコピーがあればすぐ使う",
+    subtitle: "なければ元データを取りに行き、次のためにコピーを置く",
+    nodes: [
+      { label: "利用者", detail: "同じ情報をもう一度見たい", icon: "user", tone: "blue" },
+      { label: "キャッシュ確認", detail: "近くのコピーを探す", icon: "database", tone: "brand" },
+      { label: "ヒット", detail: "あればすぐ返す", icon: "check", tone: "accent" },
+      { label: "ミス", detail: "なければ元データへ", icon: "server", tone: "yellow" },
+      { label: "更新", detail: "古いコピーは捨てる", icon: "spark", tone: "neutral" }
+    ],
+    callout: "キャッシュは速さのためのコピーです。古くなる可能性があるので、有効期限や更新もセットで考えます。"
+  },
+  {
     topicId: "technology-dns",
     mode: "network",
     title: "名前から住所を探してからアクセスする",
